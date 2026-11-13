@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Café da manhã · Liiv Hotéis</title>
+<style>
+  /* Identidade corporativa Liiv Hotéis (MIV v2): preto, cinzas e branco; pink só como detalhe pontual. */
+  @font-face { font-family: "Core Rhino"; font-weight: 700; font-display: swap;
+    src: local("Core Rhino 65 Bold"), url("https://marca.liivhoteis.com.br/marca/assets/fonts/CoreRhino65Bold.ttf") format("truetype"); }
+  @font-face { font-family: "Core Rhino"; font-weight: 300; font-display: swap;
+    src: local("Core Rhino 25 Thin"), url("https://marca.liivhoteis.com.br/marca/assets/fonts/CoreRhino25Thin.ttf") format("truetype"); }
+
+  :root {
+    --preto: #000000; --cinza3: #5B5B5B; --cinza2: #A0A0A0; --cinza1: #DBDBDB;
+    --branco: #FAFAFA; --pink: #FA0F5C;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--branco); color: var(--preto);
+    font-family: "Core Rhino", Arial, Helvetica, sans-serif; font-weight: 300; font-size: 17px; line-height: 1.45; }
+  b, h1, h2, button { font-weight: 700; }
+
+  header { background: var(--preto); color: var(--branco); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 18px; padding-bottom: 18px; }
+  header img { height: 54px; width: auto; display: block; }
+  header h1 { margin: 0; font-size: 20px; text-align: right; line-height: 1.2; }
+  header h1 span { display: block; font-weight: 300; font-size: 16px; color: var(--cinza1); }
+
+  main.wrap { padding-top: 28px; padding-bottom: 48px; }
+  .rotulo { font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--cinza3); margin: 0 0 12px; }
+
+  .unidades { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .unidades button { font: inherit; font-weight: 700; font-size: 17px; text-align: left; cursor: pointer;
+    background: #fff; color: var(--preto); border: 1.5px solid var(--cinza1); border-radius: 12px;
+    padding: 16px 16px 14px; min-height: 76px; transition: border-color .15s, background .15s, color .15s; }
+  .unidades button small { display: block; font-weight: 300; font-size: 14px; color: var(--cinza3); margin-top: 2px; }
+  .unidades button:hover { border-color: var(--preto); }
+  .unidades button:focus-visible, .acao:focus-visible, input:focus-visible { outline: 3px solid var(--cinza2); outline-offset: 2px; }
+  .unidades button[aria-pressed="true"] { background: var(--preto); color: var(--branco); border-color: var(--preto); }
+  .unidades button[aria-pressed="true"] small { color: var(--cinza1); }
+
+  #painel { margin-top: 32px; }
+  .topo { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; border-bottom: 2px solid var(--preto); padding-bottom: 14px; }
+  .topo h2 { margin: 0; font-size: 28px; line-height: 1.15; }
+  .pontos { display: inline-flex; gap: 5px; margin-right: 10px; vertical-align: middle; }
+  .pontos i { width: 9px; height: 9px; border-radius: 50%; background: var(--pink); display: block; }
+  .resumo { margin: 4px 0 0; color: var(--cinza3); font-size: 16px; }
+  .resumo b { color: var(--preto); }
+  .ferramentas { display: flex; gap: 8px; align-items: center; }
+  input[type=search] { font: inherit; font-size: 16px; padding: 10px 12px; border: 1.5px solid var(--cinza1); border-radius: 10px; background: #fff; color: var(--preto); width: 190px; }
+  .acao { font: inherit; font-weight: 700; font-size: 15px; cursor: pointer; background: #fff; color: var(--preto);
+    border: 1.5px solid var(--preto); border-radius: 10px; padding: 10px 14px; }
+  .acao:hover { background: var(--preto); color: var(--branco); }
+
+  ul.aptos { list-style: none; margin: 0; padding: 0; }
+  ul.aptos > li { display: grid; grid-template-columns: 96px 1fr auto; gap: 14px; align-items: start; padding: 16px 4px; border-bottom: 1px solid var(--cinza1); }
+  .apto { font-weight: 700; font-size: 30px; line-height: 1.1; }
+  .apto small { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--cinza2); margin-bottom: 2px; }
+  .nomes { margin: 0; padding: 0; list-style: none; }
+  .nomes li { display: block; padding: 0; border: 0; font-size: 17px; }
+  .nomes li:first-child { font-weight: 700; }
+  .tag { font-weight: 700; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--cinza3); border: 1px solid var(--cinza2); border-radius: 20px; padding: 1px 7px; margin-left: 6px; vertical-align: 2px; }
+  .saida { font-size: 14px; color: var(--cinza3); margin-top: 4px; }
+  .qtd { font-weight: 700; font-size: 15px; background: var(--preto); color: var(--branco); border-radius: 20px; padding: 4px 12px; white-space: nowrap; }
+
+  .aviso { margin: 28px 0 0; padding: 18px; border: 1.5px solid var(--cinza1); border-radius: 12px; background: #fff; color: var(--cinza3); }
+  .aviso b { color: var(--preto); display: block; margin-bottom: 4px; }
+  .inicio { margin-top: 36px; color: var(--cinza3); }
+  [hidden] { display: none !important; }
+  form.aviso { max-width: 420px; margin-top: 8px; }
+  form.aviso .linha { display: flex; gap: 8px; margin-top: 12px; }
+  form.aviso input { flex: 1; min-width: 0; font: inherit; font-size: 16px; padding: 10px 12px; border: 1.5px solid var(--cinza1); border-radius: 10px; background: #fff; color: var(--preto); }
+  form.aviso .erro { color: var(--preto); font-weight: 700; margin: 10px 0 0; }
+  .sair { font: inherit; font-size: 14px; color: var(--cinza3); background: none; border: 0; padding: 0; margin-top: 28px; text-decoration: underline; cursor: pointer; }
+
+  footer { border-top: 1px solid var(--cinza1); padding: 22px 0 30px; text-align: center; color: var(--cinza3); font-size: 16px; letter-spacing: .22em; }
+
+  @media (max-width: 560px) {
+    header img { height: 44px; }
+    header h1 { font-size: 17px; }
+    .unidades { grid-template-columns: 1fr 1fr; }
+    .topo h2 { font-size: 24px; }
+    .ferramentas { width: 100%; }
+    input[type=search] { flex: 1; width: auto; }
+    ul.aptos > li { grid-template-columns: 70px 1fr auto; gap: 10px; }
+    .apto { font-size: 25px; }
+  }
+  @media print { header, .unidades, .rotulo, .ferramentas, footer { display: none; } body { background: #fff; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <img src="logo-liiv-hoteis-branca.svg"
+         onerror="this.onerror=null;this.src='https://marca.liivhoteis.com.br/marca/assets/logo-liiv-hoteis-branca.svg'"
+         alt="liiv hotéis">
+    <h1>Café da manhã <span id="hoje"></span></h1>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="escolha">
+    <p class="rotulo">Escolha a unidade</p>
+    <div class="unidades" id="unidades"></div>
+  </div>
+  <section id="painel" aria-live="polite">
+  </section>
+</main>
+
+<footer>Live.Stay.Liiv</footer>
+
+<script>
+/* ============================ CONFIGURAÇÃO ============================
+   O navegador não fala direto com o sistema do hotel: a consulta passa por
+   /api/<unidade>, uma função que roda no mesmo endereço do site (pasta
+   api/). As URLs das APIs e a senha ficam guardadas lá, como segredos. */
+const API_BASE = "/api";
+
+const UNIDADES = [
+  { id: "cobogo",   nome: "Liiv Cobogó",      local: "Ponta Negra" },
+  { id: "costeira", nome: "Liiv Costeira",    local: "Ponta Negra" },
+  { id: "mar",      nome: "Liiv Mar",         local: "Ponta Negra" },
+  { id: "hub",      nome: "Liiv Hub",         local: "Ponta Negra" },
+  { id: "pipa",     nome: "Liiv Nature Pipa", local: "Praia de Pipa" },
+];
+/* ====================================================================== */
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+let atual = null, dados = [], pedido = 0;
+
+$("hoje").textContent = new Date().toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "long" });
+
+UNIDADES.forEach((u) => {
+  const b = el("button", null, u.nome);
+  b.type = "button"; b.dataset.id = u.id; b.setAttribute("aria-pressed", "false");
+  b.appendChild(el("small", null, u.local));
+  b.addEventListener("click", () => carregar(u));
+  $("unidades").appendChild(b);
+});
+
+/* Agrupa por apartamento, ordena do maior para o menor e os hóspedes pela sequência (seq 1 = titular). */
+function agrupar(lista) {
+  const mapa = new Map();
+  lista.filter((p) => Number(p.usado) === 0).forEach((p) => {
+    const apto = String(p.apto ?? "").trim();
+    if (!mapa.has(apto)) mapa.set(apto, []);
+    mapa.get(apto).push(p);
+  });
+  const grupos = [...mapa.entries()].map(([apto, pax]) => ({
+    apto, pax: pax.sort((a, b) => Number(a.seq) - Number(b.seq)),
+  }));
+  grupos.sort((a, b) => {
+    const na = parseInt(a.apto, 10), nb = parseInt(b.apto, 10);
+    if (!isNaN(na) && !isNaN(nb) && na !== nb) return nb - na;
+    return b.apto.localeCompare(a.apto, "pt-BR", { numeric: true });
+  });
+  return grupos;
+}
+
+const nomeLimpo = (n) => String(n ?? "").replace(/\s+/g, " ").trim();
+
+async function carregar(u) {
+  atual = u;
+  const meu = ++pedido;
+  document.querySelectorAll("#unidades button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.id === u.id)));
+  const painel = $("painel");
+  painel.replaceChildren(cabecalho(u, "Consultando o sistema…"));
+
+  try {
+    const chave = lerChave();
+    const r = await fetch(API_BASE.replace(/\/$/, "") + "/" + u.id, { cache: "no-store", headers: chave ? { "X-Chave": chave } : {} });
+    if (meu !== pedido) return;
+    if (r.status === 401) { guardarChave(""); pedirChave("Senha incorreta. Tente de novo."); return; }
+    if (r.status === 503) throw new Error("Esta unidade ainda não foi configurada.");
+    if (!r.ok) throw new Error("O sistema do hotel não respondeu (erro " + r.status + ").");
+    const json = await r.json();
+    if (meu !== pedido) return;
+    dados = Array.isArray(json) ? json : [];
+    desenhar(u, "");
+  } catch (e) {
+    if (meu !== pedido) return;
+    erro(u, "Não foi possível consultar " + u.nome, (e && e.message ? e.message + " " : "") + "Verifique a internet e toque em Atualizar.");
+  }
+}
+
+function cabecalho(u, resumo, comFerramentas) {
+  const topo = el("div", "topo");
+  const esq = el("div");
+  const h2 = el("h2");
+  const pts = el("span", "pontos"); pts.append(el("i"), el("i")); pts.setAttribute("aria-hidden", "true");
+  h2.append(pts, document.createTextNode(u.nome));
+  const res = el("p", "resumo"); res.id = "resumo";
+  if (typeof resumo === "string") res.textContent = resumo; else res.append(...resumo);
+  esq.append(h2, res);
+  topo.appendChild(esq);
+  const fer = el("div", "ferramentas");
+  if (comFerramentas) {
+    const busca = el("input"); busca.type = "search"; busca.id = "busca"; busca.placeholder = "Apto ou nome"; busca.setAttribute("aria-label", "Buscar por apartamento ou nome");
+    busca.addEventListener("input", () => lista(busca.value));
+    fer.appendChild(busca);
+  }
+  const at = el("button", "acao", "Atualizar"); at.type = "button"; at.addEventListener("click", () => carregar(u));
+  fer.appendChild(at);
+  topo.appendChild(fer);
+  return topo;
+}
+
+function desenhar(u) {
+  const grupos = agrupar(dados);
+  const total = grupos.reduce((s, g) => s + g.pax.length, 0);
+  const hora = new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+  const resumo = [
+    el("b", null, String(grupos.length)), document.createTextNode(grupos.length === 1 ? " apartamento · " : " apartamentos · "),
+    el("b", null, String(total)), document.createTextNode((total === 1 ? " hóspede" : " hóspedes") + " com café disponível · atualizado às " + hora),
+  ];
+  const painel = $("painel");
+  painel.replaceChildren(cabecalho(u, resumo, grupos.length > 0));
+  const ul = el("ul", "aptos"); ul.id = "lista";
+  painel.appendChild(ul);
+  lista("");
+}
+
+function lista(filtro) {
+  const ul = $("lista"); if (!ul) return;
+  const f = filtro.trim().toLowerCase();
+  const grupos = agrupar(dados).filter((g) => !f || g.apto.toLowerCase().includes(f) || g.pax.some((p) => nomeLimpo(p.nome).toLowerCase().includes(f)));
+  ul.replaceChildren();
+  const velho = document.querySelector("#painel .aviso"); if (velho) velho.remove();
+  if (!grupos.length) {
+    const a = el("div", "aviso");
+    a.append(el("b", null, f ? "Nada encontrado" : "Nenhum café disponível"),
+      document.createTextNode(f ? "Nenhum apartamento ou hóspede corresponde à busca." : "O sistema não retornou hóspedes com café da manhã disponível nesta unidade."));
+    $("painel").appendChild(a);
+    return;
+  }
+  grupos.forEach((g) => {
+    const li = el("li");
+    const apto = el("div", "apto"); apto.append(el("small", null, "Apto"), document.createTextNode(g.apto || "s/ nº"));
+    const meio = el("div");
+    const nomes = el("ul", "nomes");
+    g.pax.forEach((p) => {
+      const n = el("li", null, nomeLimpo(p.nome) || "Hóspede sem nome");
+      if (String(p.adultocrianca).toUpperCase() === "C") n.appendChild(el("span", "tag", "criança"));
+      nomes.appendChild(n);
+    });
+    meio.appendChild(nomes);
+    const saidas = [...new Set(g.pax.map((p) => p.datasaida).filter(Boolean))];
+    if (saidas.length) meio.appendChild(el("div", "saida", "Saída em " + saidas.join(" e ")));
+    const qtd = el("span", "qtd", g.pax.length + (g.pax.length === 1 ? " café" : " cafés"));
+    li.append(apto, meio, qtd);
+    ul.appendChild(li);
+  });
+}
+
+function erro(u, titulo, texto) {
+  const a = el("div", "aviso"); a.append(el("b", null, titulo), document.createTextNode(texto));
+  $("painel").replaceChildren(cabecalho(u, ""), a);
+}
+
+/* Senha geral da equipe: pedida ao abrir o site, guardada neste aparelho e conferida no servidor a cada consulta. */
+const INICIO = "Toque em uma unidade para ver os apartamentos com café da manhã disponível.";
+function lerChave() { try { return localStorage.getItem("liiv-cafe-chave") || ""; } catch (e) { return window.__chave || ""; } }
+function guardarChave(v) { window.__chave = v; try { v ? localStorage.setItem("liiv-cafe-chave", v) : localStorage.removeItem("liiv-cafe-chave"); } catch (e) {} }
+
+function pedirChave(msg) {
+  pedido++; atual = null; dados = [];
+  $("escolha").hidden = true;
+  document.querySelectorAll("#unidades button").forEach((b) => b.setAttribute("aria-pressed", "false"));
+  const a = el("form", "aviso");
+  a.append(el("b", null, "Acesso da equipe"), document.createTextNode("Digite a senha para consultar a lista do café da manhã."));
+  const linha = el("div", "linha");
+  const i = el("input"); i.type = "password"; i.required = true; i.autocomplete = "current-password"; i.setAttribute("aria-label", "Senha");
+  const ok = el("button", "acao", "Entrar"); ok.type = "submit";
+  linha.append(i, ok); a.appendChild(linha);
+  if (msg) { const e = el("p", "erro", msg); e.setAttribute("role", "alert"); a.appendChild(e); }
+  a.addEventListener("submit", (ev) => { ev.preventDefault(); if (!i.value.trim()) return; guardarChave(i.value.trim()); liberar(); });
+  $("painel").replaceChildren(a);
+  i.focus();
+}
+
+function liberar() {
+  $("escolha").hidden = false;
+  const sair = el("button", "sair", "Sair deste aparelho"); sair.type = "button";
+  sair.addEventListener("click", () => { guardarChave(""); pedirChave(""); });
+  $("painel").replaceChildren(el("p", "inicio", INICIO), sair);
+}
+
+lerChave() ? liberar() : pedirChave("");
+</script>
+</body>
+</html>
